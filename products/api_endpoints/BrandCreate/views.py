@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from products.models import ProductVariant, Brand
+from products.models import ProductVariant, Brand, Product
 from .serializers import BrandCreateSerializer
 
 class BrandCreateView(APIView):

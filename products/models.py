@@ -8,11 +8,21 @@ class Product(BaseModel):
     brand = models.ForeignKey('products.Brand', on_delete=models.SET_NULL, null=True, blank=True)
     slug = models.SlugField(null=False, blank=False, unique=True)
     default_images = models.ManyToManyField('common.MediaFile', blank=True)
+    price = models.BigIntegerField(default=0, null=False, blank=False)
+    stock = models.IntegerField(default=0, null=False, blank=False)
+    image=models.ImageField(upload_to='products', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     category = models.ForeignKey('products.Category', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"
+
+class FeaturedProduct(BaseModel):
+    product = models.ForeignKey('products.Product', on_delete=models.SET_NULL, null=True, blank=True)
+    is_featured = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.product.name} - Featured: {self.is_featured}"
 
 
 class ProductVariant(BaseModel):

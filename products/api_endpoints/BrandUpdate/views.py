@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from products.models import ProductVariant, Brand
-from .serializers import BrandListSerializer, BrandUpdateSerializer
+from .serializers import BrandUpdateSerializer
 
 class BrandUpdateView(APIView):
     permission_classes = [IsAuthenticated]
@@ -17,5 +17,5 @@ class BrandUpdateView(APIView):
         serializer = BrandUpdateSerializer(brand, data=request.data)
         if serializer.is_valid():
             brand = serializer.save()
-            return Response(BrandListSerializer(brand).data, status=status.HTTP_200_OK)
+            return Response(BrandUpdateSerializer(brand).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

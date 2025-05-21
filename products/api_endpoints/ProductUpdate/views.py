@@ -8,8 +8,8 @@ from .serializers import ProductUpdateSerializer
 class ProductUpdateView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, pk):
-        product = Product.objects.get(pk=pk)
+    def put(self, request, product_id):
+        product = Product.objects.get(pk=product_id)
         serializer = ProductUpdateSerializer(product, data=request.data)
         if serializer.is_valid():
             serializer.save()

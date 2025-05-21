@@ -1,35 +1,5 @@
 from django.urls import path
-from products.views import (
-    ProductListView,
-    ProductDetailView, 
-    CategoryListView, 
-    ProductCreateView,
-    ProductUpdateView,
-    ProductDeleteView,
-    CategoryCreateView,
-    CategoryUpdateView,
-    CategoryDeleteView,
-    BrandCreateView,
-    BrandUpdateView,
-    BrandDeleteView,
-    BrandListView,
-    BrandDetailView,
-    SizeCreateView,
-    SizeUpdateView,
-    SizeDeleteView,
-    SizeListView,
-    ColorCreateView,
-    ColorUpdateView,
-    ColorDeleteView,
-    ColorListView,
-    ProductOptionsCreateView,
-    ProductOptionsUpdateView,
-    ProductOptionsDeleteView,
-    ProductOptionsListView,
-    ProductOptionsDetailView,
-
-
-    )
+from products.api_endpoints import *
 
 
 urlpatterns = [
@@ -55,10 +25,10 @@ urlpatterns = [
     path('colors/update/<int:pk>/', ColorUpdateView.as_view(), name='color-update'),
     path('colors/delete/<int:pk>/', ColorDeleteView.as_view(), name='color-delete'),
     path('colors/', ColorListView.as_view(), name='color-list'),
-    path('product-options/create/', ProductOptionsCreateView.as_view(), name='product-options-create'),
-    path('product-options/update/<int:pk>/', ProductOptionsUpdateView.as_view(), name='product-options-update'),
-    path('product-options/delete/<int:pk>/', ProductOptionsDeleteView.as_view(), name='product-options-delete'),
+    path('product-options/create/', ProductOptionCreateView.as_view(), name='product-options-create'),
+    path('product-options/update/<int:pk>/', ProductOptionUpdateView.as_view(), name='product-options-update'),
+    path('product-options/delete/<int:pk>/', ProductOptionDeleteView.as_view(), name='product-options-delete'),
     path('product-options/', ProductOptionsListView.as_view(), name='product-options-list'),
-    path('product-options/<int:pk>/', ProductOptionsDetailView.as_view(), name='product-options-detail'),
-    
+    path('product-options/<int:pk>/', ProductOptionDetailView.as_view(), name='product-options-detail'),
+
 ]
