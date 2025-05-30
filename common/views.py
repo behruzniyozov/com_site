@@ -1,6 +1,8 @@
 from django.views.generic import TemplateView
+from django.db import models
 
 from products.models import Category, FeaturedProduct
+from accounts.models import CartItem
 
 
 class HomeView(TemplateView):
@@ -27,4 +29,66 @@ class ContactView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'VooCommerce | Contact Us'
+        return context
+
+class BlogView(TemplateView):
+    template_name = 'blog.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+    
+
+class BlogDetailView(TemplateView):
+    template_name = 'blog-details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'VooCommerce | Blog Detail'
+        return super().get_context_data(**kwargs)
+
+
+class ShopGridView(TemplateView):
+    template_name = 'shop-grid.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+    
+
+class ShopDetailsView(TemplateView):
+    template_name = 'shop-details.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+    
+
+class ShoppingCartView(TemplateView):
+    template_name = 'shopping-cart.html'
+
+    def get_context_data(self, **kwargs):
+        cart_items = CartItem.objects.filter(cart=self.request.user.cart).annotate(
+            total_amount=models.F('quantity') * models.F('product__price')
+        )
+        total_amount = sum(item.total_amount for item in cart_items)
+
+        context = super().get_context_data(**kwargs)
+        context['cartitems'] = cart_items
+        context['total_amount'] = total_amount
+
+        return context
+
+
+class CheckoutView(TemplateView):
+    template_name = 'checkout.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+    
+
+class ProfileView(TemplateView):
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'VooCommerce | Profile'
+        context['current_user'] = self.request.user
         return context

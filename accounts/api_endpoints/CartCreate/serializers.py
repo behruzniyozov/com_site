@@ -18,6 +18,4 @@ class CartCreateSerializer(serializers.ModelSerializer):
         model = Cart
         fields = ['id', 'user', 'product', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
-
-
-
+        
