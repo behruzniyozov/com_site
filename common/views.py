@@ -19,7 +19,6 @@ class HomeView(TemplateView):
         context['categories'] = categories
         context['featured_products'] = featured_products
         context['latest_products'] = latest_products
-        print(categories[1].image.url)
         return context
 
 
