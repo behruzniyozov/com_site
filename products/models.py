@@ -70,3 +70,13 @@ class Color(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class ProductReview(BaseModel):
+    product = models.ForeignKey('products.ProductVariant', on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='product_reviews')
+    rating = models.IntegerField(default=0)
+    comment = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Review for {self.product.name} by {self.user.username}"
