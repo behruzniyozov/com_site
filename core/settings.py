@@ -43,6 +43,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+   
 ]
 
 INTERNAL_APPS = ['common', 'accounts', 'products', 'orders', 'payments']
@@ -72,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'common.context_processors.common_context',
             ],
         },
     },
@@ -86,13 +88,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'site_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Behruz_3005',
+        'NAME': 'com_site',            # or your actual database name
+        'USER': 'behruzniyozov',       # your PostgreSQL username
+        'PASSWORD': 'Behruz_3005',     # the password you just set
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+  
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

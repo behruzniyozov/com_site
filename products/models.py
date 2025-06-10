@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from common.models import BaseModel
 
@@ -75,8 +76,19 @@ class Color(BaseModel):
 class ProductReview(BaseModel):
     product = models.ForeignKey('products.ProductVariant', on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='product_reviews')
-    rating = models.IntegerField(default=0)
-    comment = models.TextField(null=True, blank=True)
-
+    rating = models.IntegerField(default=0, null=False, blank=False, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(5)
+    ])
+    review= models.TextField(null=True, blank=True)
     def __str__(self):
         return f"Review for {self.product.name} by {self.user.username}"
+    
+class Comment(BaseModel):
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField(max_length=500, null=False, blank=False)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.product.name}"

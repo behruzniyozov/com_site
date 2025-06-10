@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
+from accounts.models import Cart
+from accounts.api_endpoints.Profile.UserRegister.tokens import generate_user_register_token
+
 from accounts.api_endpoints.Profile.UserRegister.serializers import (
     UserRegisterRequestSerializer,
     UserRegisterVerifySerializer,
@@ -25,7 +28,9 @@ class UserRegisterAPIView(APIView):
         user = serializer.save()
 
         # Send token via email, not response
-        token = user.token
+        token = generate_user_register_token(user)
+        user.cart = Cart.objects.create(user=user) 
+        user.save()  
         send_user_register_email(user.email, token)
 
         return Response({

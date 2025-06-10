@@ -7,7 +7,7 @@ from common.choices import OrderStatus
 class Order(BaseModel):
     user = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True, blank=True)
     total_price = models.BigIntegerField(null=False, blank=False)
-    status = models.CharField(choices=OrderStatus.choices, null=False, blank=False)
+    status = models.CharField(choices=OrderStatus.choices, max_length=200, null=False, blank=False)
     notes = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
