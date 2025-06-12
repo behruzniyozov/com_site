@@ -46,8 +46,17 @@ DJANGO_APPS = [
    
 ]
 
-INTERNAL_APPS = ['common', 'accounts', 'products', 'orders', 'payments']
-EXTERNAL_APPS = ['rest_framework', 'drf_yasg', 'rest_framework_simplejwt', 'jazzmin']
+INTERNAL_APPS = ['common', 'accounts', 'products', 'orders', 'payments', 'stories']
+EXTERNAL_APPS = [
+    'rest_framework', 
+    'drf_yasg', 
+    'rest_framework_simplejwt', 
+    'jazzmin', 
+    'crispy_forms', 
+    'crispy_bootstrap4',
+    'rosetta',
+    ]
+      
 
 INSTALLED_APPS = EXTERNAL_APPS + DJANGO_APPS + INTERNAL_APPS    
 
@@ -174,3 +183,42 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+#crispy_forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# Logging Suppoer
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "accounts": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+}
+
+# I18n
+
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGES = [
+    ("uz", _("Uzbek")),
+    ("en", _("English")),
+    ("ru", _("Russian"))
+]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]

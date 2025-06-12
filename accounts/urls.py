@@ -19,5 +19,6 @@ urlpatterns = [
     path('password-reset/confirm/', PasswordResetConfirmAPIView.as_view(), name="password-reset-confirm"),
     path('user/register/', UserRegisterAPIView.as_view(), name="user-register"),
     path('user/register/verify/', UserRegisterVerifyAPIView.as_view(), name="user-register-verify"),
-
+    path('products/save-unsave/', SaveProductView.as_view(), name="save-unsave-products"),
+    path('products/saved/', SaveProductListView.as_view(), name="saved-products"),
 ]

@@ -3,13 +3,23 @@ from django.db import models
 from accounts.models import User, CartItem
 
 def common_context(request):
-    cart_items = CartItem.objects.filter(cart=request.user.cart).annotate(
-        total_price=models.F('quantity') * models.F('product_variant__price')
-    ) if request.user.is_authenticated else []
+        if request.user.is_authenticated:
+            cart_items = CartItem.objects.filter(cart=request.user.cart).annotate(
+                total_amount=models.F('quantity') * models.F('product__price')
+            )
+        total_amount = sum(item.total_amount for item in cart_items)
 
-    total_amount = sum(item.total_price for item in cart_items)
+        cart_items_count = request.user.cart.cart_items.count()
+        
+        return {
+            'site_name': 'Com_Site',
+            'is_user_authenticated': request.user.is_authenticated,
+            'user_cart_items_count': cart_items_count,
+            'cart_total_amount': total_amount // 100
+        }
+        
 
-    return {'site_name': 'My E-commerce Site',
-            'is_authenticated': request.user.is_authenticated,
-            'user_cart_items_count': cart_items.count() if request.user.is_authenticated else 0,
-            'cart_total_amount': total_amount // 100, }
+        return {
+        'site_name': 'VooCommerce',
+        'is_user_authenticated': request.user.is_authenticated,
+        }
