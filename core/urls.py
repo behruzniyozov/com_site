@@ -50,6 +50,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('common/', include('common.urls')),
+    # path('orders/', include('orders.urls')),
+    path('stories/', include('stories.urls')),
     # Swagger and Redoc URLs
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
