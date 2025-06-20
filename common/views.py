@@ -1,8 +1,34 @@
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.db import models
 
 from products.models import Category, FeaturedProduct, ProductReview, Comment
 from accounts.models import CartItem
+
+from .forms import ContactMessageForm
+from .models import ContactMessage
+
+
+def contact_message_handler(request):
+    form = ContactMessageForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            # Safe: Only access cleaned_data after validation
+            ContactMessage.objects.create(
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                subject=form.cleaned_data['subject'],
+                message=form.cleaned_data['message']
+            )
+            return render(request, 'index.html')  # Or use redirect
+
+    # Either GET request or invalid form
+    return render(request, 'contact.html', {'form': form})
+
+    return HttpResponse('Invalid request method.')
+
 
 
 class HomeView(TemplateView):

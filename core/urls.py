@@ -21,6 +21,7 @@ from drf_yasg import openapi
 from rest_framework import permissions
 from django.conf.urls.static import static
 from django.conf import settings
+import common.urls as common_urls
 
 
 
@@ -49,7 +50,8 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-    path('common/', include('common.urls')),
+     path('common/', include((common_urls.urlpatterns, 'common'), namespace='common')),
+
     # path('orders/', include('orders.urls')),
     path('stories/', include('stories.urls')),
     # Swagger and Redoc URLs
