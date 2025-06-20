@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.db import models
 
-from products.models import Category, FeaturedProduct
+from products.models import Category, FeaturedProduct, ProductReview, Comment
 from accounts.models import CartItem
 
 
@@ -14,11 +14,15 @@ class HomeView(TemplateView):
         categories = Category.objects.all()
         featured_products = FeaturedProduct.objects.filter(is_featured=True)
         latest_products = featured_products.order_by('-created_at')[:6]
+        review_products = ProductReview.objects.select_related('product').order_by('-created_at')[:6]
+        comments= Comment.objects.select_related('product').order_by('-created_at')[:6]
 
-        context['title'] = 'VooCommerce | Home'
+
+        context['title'] = 'ComSite | Home'
         context['categories'] = categories
         context['featured_products'] = featured_products
         context['latest_products'] = latest_products
+        context['review_products'] = review_products 
         return context
 
 

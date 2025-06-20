@@ -10,4 +10,4 @@ class Story(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"Story by {self.user.username} at {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+        return f"Story by {self.user.email} at {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"

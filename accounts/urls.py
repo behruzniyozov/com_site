@@ -1,7 +1,8 @@
 from django.urls import path
 from .api_endpoints import *
 
-urlpatterns = [
+
+apis = [
     path('cart/create/', CartCreateView.as_view(), name='cart-create'),
     path('cart/delete/<int:pk>/', CartDeleteView.as_view(), name='cart-delete'),
     path('cart/detail/<int:pk>/', CartDetailView.as_view(), name='cart-detail'),
@@ -21,4 +22,13 @@ urlpatterns = [
     path('user/register/verify/', UserRegisterVerifyAPIView.as_view(), name="user-register-verify"),
     path('products/save-unsave/', SaveProductView.as_view(), name="save-unsave-products"),
     path('products/saved/', SaveProductListView.as_view(), name="saved-products"),
+    
+
 ]
+
+template_urls = [
+    path("template/login/", SessionLoginAPIView.as_view(), name="login-session"),
+    path("template/logout/", SessionLogoutAPIView.as_view(), name="logout-session"),
+]
+
+urlpatterns = apis + template_urls
