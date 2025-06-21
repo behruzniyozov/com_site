@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from com_site.products.models import ProductReview, Product
+from products.models import ProductReview, Product
 
 
 class ProductSerializer(serializers.ModelSerializer):

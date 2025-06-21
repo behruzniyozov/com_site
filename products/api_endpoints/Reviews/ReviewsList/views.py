@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import ReviewListSerializer
-from com_site.products.models import ProductReview
+from products.models import ProductReview
 class ReviewListView(APIView):
     permission_classes = [IsAuthenticated]
 

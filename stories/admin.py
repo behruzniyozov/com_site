@@ -3,7 +3,7 @@ from .models import Story
 
 @admin.register(Story)
 class StoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "content", "story", "created_at")
+    list_display = ("id", "user", "content", "story", "created_at", "is_active")
     search_fields = ("user__username", "content")
     list_filter = ("created_at",)
     readonly_fields = ("created_at",)

@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from datetime import timedelta
+from celery.schedules import crontab
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -229,3 +231,13 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_BEAT_SCHEDULE = {
+    'delete-expired-stories-every-hour': {
+        'task': 'stories.tasks.delete_expired_stories',
+        'schedule': crontab(minute=0, hour='*'),  # Every hour
+        
+
+    },
+}

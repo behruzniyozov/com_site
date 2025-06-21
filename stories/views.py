@@ -13,3 +13,4 @@ class StoryAPIView(viewsets.ModelViewSet):
         story = serializer.save(user=self.request.user)
         from .tasks import delete_story_later
         delete_story_later.delay(story.id)
+        
