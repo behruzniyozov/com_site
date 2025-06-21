@@ -48,7 +48,7 @@ DJANGO_APPS = [
    
 ]
 
-INTERNAL_APPS = ['common', 'accounts', 'products', 'orders', 'payments', 'stories']
+INTERNAL_APPS = ['common', 'accounts', 'products', 'orders', 'payments', 'stories', 'blog']
 EXTERNAL_APPS = [
     'rest_framework', 
     'drf_yasg', 

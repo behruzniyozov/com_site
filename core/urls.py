@@ -50,7 +50,8 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
-     path('common/', include((common_urls.urlpatterns, 'common'), namespace='common')),
+    path('common/', include((common_urls.urlpatterns, 'common'), namespace='common')),
+    path('blog/', include('blog.urls')),
 
     # path('orders/', include('orders.urls')),
     path('stories/', include('stories.urls')),
