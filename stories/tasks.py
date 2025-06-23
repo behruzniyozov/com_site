@@ -4,11 +4,13 @@ from .models import Story
 
 @shared_task
 def deactivate_story_later(story_id):
+    print(f"Task started for story {story_id}")
     try:
         story = Story.objects.get(id=story_id)
         story.is_active = False
         story.save()
-        return f"Story {story_id} marked as inactive"
+        print(f"Story {story_id} deactivated")
     except Story.DoesNotExist:
-        return f"Story {story_id} not found"
+        print(f"Story {story_id} not found")
+
 

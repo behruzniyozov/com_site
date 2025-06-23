@@ -1,5 +1,7 @@
 from django.urls import path
-from api_endpoints import *
+from blog.api_endpoints import *
+
+app_name = 'blog'
 
 apis = [
     path('blog/create/', BlogCreateView.as_view(), name='blog-create'),

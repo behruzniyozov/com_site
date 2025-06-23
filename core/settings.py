@@ -232,12 +232,13 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_TASK_ALWAYS_EAGER = True
-CELERY_TASK_EAGER_PROPAGATES = True
-CELERY_BEAT_SCHEDULE = {
-    'delete-expired-stories-every-hour': {
-        'task': 'stories.tasks.delete_expired_stories',
-        'schedule': crontab(minute=0, hour='*'),  # Every hour
-        
 
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'delete-expired-stories-every-minute': {
+        'task': 'stories.tasks.delete_expired_stories',
+        'schedule': crontab(minute=0, hour=1),  # Every minute
     },
 }
+

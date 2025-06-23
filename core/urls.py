@@ -52,6 +52,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('common/', include((common_urls.urlpatterns, 'common'), namespace='common')),
     path('blog/', include('blog.urls')),
+    path('payments/', include('payments.urls')),
+    path('orders/', include('orders.urls')),
+
 
     # path('orders/', include('orders.urls')),
     path('stories/', include('stories.urls')),

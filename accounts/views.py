@@ -4,6 +4,7 @@ from .forms import UserRegistrationForm, UserLoginForm, UserResetPasswordForm
 import requests
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm
+from django.contrib.auth import authenticate, login
 
 import uuid
 from django.core.mail import send_mail

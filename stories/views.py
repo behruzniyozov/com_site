@@ -12,6 +12,6 @@ class StoryAPIView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         story = serializer.save(user=self.request.user)
-        deactivate_story_later.apply_async(args=[story.id], countdown=60 * 60 * 24)
-        
-        
+        from .tasks import deactivate_story_later
+        deactivate_story_later.apply_async(args=[story.id], countdown=10)
+
