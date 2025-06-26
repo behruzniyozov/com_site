@@ -228,17 +228,15 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = "redis://localhost:6379/1"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_TASK_ALWAYS_EAGER = True
 
-from celery.schedules import crontab
-
-CELERY_BEAT_SCHEDULE = {
-    'delete-expired-stories-every-minute': {
-        'task': 'stories.tasks.delete_expired_stories',
-        'schedule': crontab(minute=0, hour=1),  # Every minute
-    },
-}
-
+# settings.py
+# CELERY_BEAT_SCHEDULE = {
+#     'deactivate-stories-every-minute': {
+#         'task': 'stories.tasks.deactivate_story_later',  # Fixed task name
+#         'schedule': crontab(minute='*'),
+#     },
+    
+# }

@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.db import models
+from .forms import CheckoutForm
 
-from products.models import Category, FeaturedProduct, ProductReview, Comment
+from products.models import Category, FeaturedProduct, Product, ProductReview, Comment, ProductVariant
 from accounts.models import CartItem
 
 from .forms import ContactMessageForm
@@ -121,3 +122,23 @@ class ProfileView(TemplateView):
         context['title'] = 'VooCommerce | Profile'
         context['current_user'] = self.request.user
         return context
+    
+def checkout_view(request):
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # You can process the data here or save it to the database
+            print(form.cleaned_data)  # Just for debug/log
+            return redirect('success')  # Replace with your actual success URL
+    else:
+        form = CheckoutForm()
+    return render(request, 'checkout.html', {'form': form})
+
+def product_detail_view(request, slug):
+    product = Product.objects.get(slug=slug)
+    variant = ProductVariant.objects.filter(product=product, is_active=True).first()
+
+    return render(request, 'product_detail.html', {
+        'product': product,
+        'variant': variant
+    })

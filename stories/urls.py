@@ -1,8 +1,9 @@
 
-from rest_framework.routers import DefaultRouter
-from .views import StoryAPIView
+from django.urls import path
+from stories.api_endpoints import *
 
-router = DefaultRouter()
-router.register(r'stories', StoryAPIView, basename='story')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path("stories/", StoryCreateAPIView.as_view(), name="story-list-create"),
+    path("stories/<int:pk>/", StoryListAPIView.as_view(), name="story-detail"),
+    path("stories/<int:pk>/delete?", StoryDeleteAPIView.as_view(), name="story-delete"),]
