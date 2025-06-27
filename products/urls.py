@@ -7,7 +7,7 @@ app_name = 'products'
 
 urlpatterns = [
     path('products/', ProductListView.as_view(), name='product-list'),
-    path('products/<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
+    path('products/<slug:slug>/', ProductDetailView.as_view(), name='product-detail'),
     path('categories/', CategoryListView.as_view(), name='category-list'),
     path('products/create/', ProductCreateView.as_view(), name='product-create'),
     path('products/update/<int:pk>/', ProductUpdateView.as_view(), name='product-update'),
@@ -33,5 +33,8 @@ urlpatterns = [
     path('product-options/delete/<int:pk>/', ProductOptionDeleteView.as_view(), name='product-options-delete'),
     path('product-options/', ProductOptionsListView.as_view(), name='product-options-list'),
     path('product-options/<int:pk>/', ProductOptionDetailView.as_view(), name='product-options-detail'),
+    path('product-comments/create/', ReviewCreateView.as_view(), name='product-comment-create'),
+    path('product-comments/delete/<int:review_id>/', ReviewDeleteView.as_view(), name='product-comment-delete'),
+    path('product-comments/', ReviewListView.as_view(), name='product-comment-list'),
 
 ]

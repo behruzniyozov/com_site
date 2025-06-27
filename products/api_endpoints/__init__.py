@@ -26,3 +26,4 @@ from .ColorUpdate import *
 from .ColorCreate import *
 from .ColorDelete import *
 from .ColorList import *
+from .Reviews import *

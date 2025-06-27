@@ -2,18 +2,13 @@ from rest_framework import serializers
 from products.models import ProductReview, Product
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'price']
-        read_only_fields = ['id'] 
-
 class ReviewCreateSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)  
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+
     class Meta:
         model = ProductReview
-        fields = ['product', 'rating', 'comment']
-        read_only_fields = ['user']  
+        fields = ['product', 'rating', 'review']
+        read_only_fields = ['user']
 
     def validate_rating(self, value):
         if value < 1 or value > 5:
@@ -22,5 +17,5 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         request = self.context.get('request')
-        validated_data['user'] = request.user  
-        return super().create(validated_data)
+        validated_data['user'] = request.user
+        return ProductReview.objects.create(**validated_data)

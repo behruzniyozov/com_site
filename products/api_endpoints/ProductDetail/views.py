@@ -8,4 +8,4 @@ class ProductDetailView(RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
     permission_classes = []
-    lookup_field = 'id'
+    lookup_field = 'slug'
